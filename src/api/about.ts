@@ -1,0 +1,76 @@
+import axios from "axios";
+import { toast } from "react-toastify";
+import ContactField from "../types/ContactField";
+
+const url = 'about/contact-fields/';
+export const createContactField = (name: string, value: string, link: string) => {
+    const token = `Token ${localStorage.getItem('token')}`;
+    axios({
+        baseURL: process.env.REACT_APP_API_URL,
+        data: {
+            name,
+            value,
+            link,
+        },
+        headers: {
+            'Authorization': token,
+        },
+        url,
+        method: 'post',
+    }).then(() => {
+        toast.success('Contact Field Added Successfully');
+    }).catch((err) => {
+        toast.error(err.data);
+    });
+}
+
+export const getContactFields = async (): Promise<Array<ContactField>> => {
+    const { data } = await axios.get(url, {
+        baseURL: process.env.REACT_APP_API_URL,
+    });
+    return data;
+}
+
+export const getOneContactField = async (id: number): Promise<ContactField> => {
+    const { data } = await axios.get(`${url}${id}/`, {
+        baseURL: process.env.REACT_APP_API_URL,
+    });
+    return data;
+}
+
+export const updateOneContactField = (name: string, value: string, link: string, id: number) => {
+    const token = `Token ${localStorage.getItem('token')}`;
+    axios({
+        baseURL: process.env.REACT_APP_API_URL,
+        data: {
+            name,
+            value,
+            link,
+        },
+        headers: {
+            'Authorization': token,
+        },
+        url: `${url}${id}/`,
+        method: 'put',
+    }).then(() => {
+        toast.success('Contact Field Updated Successfully');
+    }).catch((err) => {
+        toast.error(err.data);
+    });
+}
+
+export const deleteOneContactField = (id: number) => {
+    const token = `Token ${localStorage.getItem('token')}`;
+    axios({
+        baseURL: process.env.REACT_APP_API_URL,
+        headers: {
+            'Authorization': token,
+        },
+        url: `${url}${id}/`,
+        method: 'delete',
+    }).then(() => {
+        toast.success('Contact Field Deleted Successfully');
+    }).catch((err) => {
+        toast.error(err.data);
+    });
+}
