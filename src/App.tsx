@@ -1,7 +1,13 @@
 import React from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Route, Routes } from "react-router-dom";
 import './App.css';
+import Gallery from './pages/Gallery';
+import Home from './pages/Home';
+import NotFound from './pages/NotFound';
+import Login from './pages/Login';
+import Admin from './pages/Admin';
 
 function App(): React.ReactElement {
   return (
@@ -18,7 +24,15 @@ function App(): React.ReactElement {
         draggable
         pauseOnHover
       />
-      <p className="text-2xl text-secondary font-extrabold">Shakib</p>
+      <Routes>
+        <Route path="/gallery/:slug" element={<Gallery />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/admin" element={<Admin />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/not-found" element={<NotFound />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </>
   );
 }
