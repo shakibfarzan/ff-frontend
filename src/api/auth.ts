@@ -17,3 +17,7 @@ export const login = (username: string, password: string) => {
         toast.error("Login failed");
     })
 }
+
+export const logout = () => {
+    localStorage.removeItem('token');
+}

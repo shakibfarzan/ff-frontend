@@ -1,11 +1,11 @@
 import React from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { getBio } from './api/about';
+import { getCategories, getOneCategory } from './api/category';
 import './App.css';
 
 function App(): React.ReactElement {
-  getBio().then((res) => {
+  getOneCategory('fashion').then((res) => {
     console.log(res);
   })
   return (
