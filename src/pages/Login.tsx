@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../api/auth';
-import { Button } from '../components';
+import { Button, Input } from '../components';
 
 const Login = (): React.ReactElement => {
     const navigate = useNavigate();
@@ -19,24 +19,22 @@ const Login = (): React.ReactElement => {
         <div className='p-20 bg-secondary md:w-1/4 shadow-2xl'>
             <p className="text-2xl text-center text-light mb-4">LOG IN</p>
             <form className='flex flex-col gap-4'>
-                <input 
-                       value={username}
-                       onChange={(e) => { setUsername(e.target.value); }}
-                       autoFocus 
-                       className='block text-sm px-2 py-2 outline-none text-secondary' 
-                       id="username" 
-                       name="username" 
-                       type="text" 
-                       placeholder='Username'
+                <Input
+                    value={username}
+                    onChange={(e) => { setUsername(e.target.value); }}
+                    autoFocus
+                    id="username" 
+                    name="username" 
+                    type="text" 
+                    placeholder='Username'                   
                 />
-                <input 
-                       value={password}
-                       onChange={(e) => { setPassword(e.target.value); }}
-                       className='block text-sm px-2 py-2 outline-none text-secondary' 
-                       type="password" 
-                       name="password" 
-                       id="password" 
-                       placeholder='Password'
+                <Input 
+                    value={password}
+                    onChange={(e) => { setPassword(e.target.value); }}
+                    type="password" 
+                    name="password" 
+                    id="password" 
+                    placeholder='Password'                                          
                 />
                 <Button mode='primary' content='Submit' onClick={() => { login(username, password, () => { navigate('/admin'); }); } }/>
             </form>

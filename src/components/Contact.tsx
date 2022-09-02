@@ -44,8 +44,8 @@ const Contact = (): React.ReactElement => {
             {contactFields?.map(({ name, link, value}) => (
                 <div className="flex-col">
                     <div className='flex justify-center'>
-                        <a href={linkMaker(name, link)} rel="noreferrer" target="_blank">
-                            <img className="w-8 cursor-pointer md:w-10 lg:w-12" src={mapObject[name]} alt={name} />
+                        <a href={linkMaker(name ?? '', link ?? '')} rel="noreferrer" target="_blank">
+                            <img className="w-8 cursor-pointer md:w-10 lg:w-12" src={mapObject[name ?? '']} alt={name} />
                         </a>
                     </div>
                     <p className={`flex justify-center font-semibold ${isMobile ? 'mb-6' : ''}`}>{value}</p>
