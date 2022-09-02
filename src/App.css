@@ -6,6 +6,22 @@ html {
   @apply bg-primary;
 }
 
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary-light;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-secondary;
+}
+
 .rhm-rn-navigation__icon,
 .rhm-rn-navigation__icon::before, 
 .rhm-rn-navigation__icon::after{

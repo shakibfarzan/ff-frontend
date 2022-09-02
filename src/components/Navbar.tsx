@@ -40,9 +40,9 @@ const Navbar = ({ name }: { name: string | undefined }): React.ReactElement => {
   >
     <ul className="mr-2">
       {categories?.map((category) => 
-      <li key={category.id} className="text-light font-medium hover:text-primary active:text-primary">
+      <li key={category.id} className="text-light hover:text-primary active:text-primary">
         <Link 
-          className={!isDesktop ? 'text-2xl' : ''}
+          className={!isDesktop ? 'text-2xl' : 'font-medium'}
           onClick={() => {
             if (!isDesktop) {
               setTimeout(() => {
