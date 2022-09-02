@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 const Gallery = () => {
     const { slug } = useParams<{ slug: string }>();  
   return (
-    <div>Gallery {slug}</div>
+    <div className='mt-12'>Gallery {slug}</div>
   )
 }
 

@@ -24,7 +24,7 @@ export const createCategory = (name: string, slug?: string) => {
     });
 }
 
-export const getCategories = async (): Promise<Category> => {
+export const getCategories = async (): Promise<Category[]> => {
     const { data } = await axios.get(url, {
         baseURL: process.env.REACT_APP_API_URL,
     });

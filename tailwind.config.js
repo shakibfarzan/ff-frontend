@@ -13,6 +13,9 @@ module.exports = {
         'light': '#FFFFFA',
         'granite': '#5F5F60',
         'dark-liver': '#44414B',
+      },
+      fontFamily: {
+        'kalam': "Kalam, cursive"
       }
     },
   },
