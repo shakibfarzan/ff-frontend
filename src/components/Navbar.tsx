@@ -20,10 +20,18 @@ const Navbar = ({ name }: { name: string | undefined }): React.ReactElement => {
     })
   }, []);
 
+  const handleClickReload = () => {
+    if (!isDesktop) {
+      setTimeout(() => {
+        window.location.reload();
+      }, 100);
+    }
+  }
+
   return (
     <ResponsiveNavbar
       // eslint-disable-next-line jsx-a11y/anchor-is-valid
-      logo={<Link to={'/home'} className="text-light text-lg cursor-pointer">{name?.toUpperCase()}</Link>}
+      logo={<Link to={'/home'} onClick={handleClickReload} className="text-light text-lg cursor-pointer">{name?.toUpperCase()}</Link>}
       styles={{
         navigation: {},
         navigationBarSmall: {
@@ -43,13 +51,7 @@ const Navbar = ({ name }: { name: string | undefined }): React.ReactElement => {
       <li key={category.id} className="text-light hover:text-primary active:text-primary">
         <Link 
           className={!isDesktop ? 'text-2xl' : 'font-medium'}
-          onClick={() => {
-            if (!isDesktop) {
-              setTimeout(() => {
-                window.location.reload();
-              }, 100);
-            }
-          }} 
+          onClick={handleClickReload} 
           to={`/gallery/${category.slug}`}>
             {category.name}
         </Link>
