@@ -11,7 +11,8 @@ export const login = (username: string, password: string, onSuccess?: () => void
         method: 'post',
         url: 'auth/',
     }).then((res) => {
-        localStorage.setItem('token', res.data.token);
+        localStorage.setItem('access token', res.data.access);
+        localStorage.setItem('refresh token', res.data.refresh);
         toast.success("Login successful");
         onSuccess && onSuccess();
     }).catch((err) => {

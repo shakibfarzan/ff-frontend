@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { toast } from 'react-toastify';
 import { createContactField, updateOneContactField } from '../../../api/about';
 import { Button, Input, Modal } from '../../../components'

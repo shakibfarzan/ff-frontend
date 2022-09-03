@@ -19,7 +19,7 @@ export const getPhotosByCategory = async (category: string): Promise<Photo[]> =>
 }
 
 export const createPhoto = (src: File, category: number, name?: string) => {
-    const token = `Token ${localStorage.getItem('token')}`;
+     const token = `Bearer ${localStorage.getItem('access token')}`;
     const formData = new FormData();
     formData.append('src', src);
     formData.append('category', category.toString());
@@ -40,7 +40,7 @@ export const createPhoto = (src: File, category: number, name?: string) => {
 }
 
 export const deletePhoto = (id: number) => {
-    const token = `Token ${localStorage.getItem('token')}`;
+     const token = `Bearer ${localStorage.getItem('access token')}`;
     axios({
         baseURL: process.env.REACT_APP_API_URL,
         url: `${url}${id}/`,

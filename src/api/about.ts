@@ -7,7 +7,7 @@ const contactFieldUrl = 'about/contact-fields/';
 const bioUrl = 'about/bio/';
 
 export const createContactField = (name: string, value: string, link: string) => {
-    const token = `Token ${localStorage.getItem('token')}`;
+    const token = `Bearer ${localStorage.getItem('access token')}`;
     axios({
         baseURL: process.env.REACT_APP_API_URL,
         data: {
@@ -42,7 +42,7 @@ export const getOneContactField = async (id: number): Promise<ContactField> => {
 }
 
 export const updateOneContactField = (name: string, value: string, link: string, id: number) => {
-    const token = `Token ${localStorage.getItem('token')}`;
+    const token = `Bearer ${localStorage.getItem('access token')}`;
     axios({
         baseURL: process.env.REACT_APP_API_URL,
         data: {
@@ -63,7 +63,7 @@ export const updateOneContactField = (name: string, value: string, link: string,
 }
 
 export const deleteOneContactField = (id: number) => {
-    const token = `Token ${localStorage.getItem('token')}`;
+    const token = `Bearer ${localStorage.getItem('access token')}`;
     axios({
         baseURL: process.env.REACT_APP_API_URL,
         headers: {
@@ -86,7 +86,7 @@ export const getBio = async (): Promise<Bio> => {
 }
 
 export const createUpdateBio = (name: string, bio: string, profile: File) => {
-    const token = `Token ${localStorage.getItem('token')}`;
+    const token = `Bearer ${localStorage.getItem('access token')}`;
     const formData = new FormData();
     formData.append('name', name);
     formData.append('bio', bio);

@@ -1,4 +1,5 @@
 import React, { ReactElement, useEffect, useState } from 'react'
+import { useJwt } from 'react-jwt';
 import { useMediaQuery } from 'react-responsive';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -15,17 +16,18 @@ import { Bio as BioPage, Categories, ContactFields, Logout, Photos } from './adm
 
 const Admin = () => {
   const navigate = useNavigate();
+  const token = localStorage.getItem('access token');
+  const { isExpired, decodedToken } = useJwt<{ user_id: number }>(token ?? '');
   const isMobile = useMediaQuery({ query: '(max-width: 800px)' });
   const [refreshPhotos, setRefreshPhotos] = useState(false);
   const [refreshCategories, setRefreshCategories] = useState(false);
   const [refreshBio, setRefreshBio] = useState(false);
   const [refreshContactFields, setRefreshContactFields] = useState(false);
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token) {
+    if (isExpired || (decodedToken?.user_id !== 1 && decodedToken?.user_id !== 2)) {
       navigate('/not-found');
     }
-  }, [navigate]);
+  }, [decodedToken?.user_id, isExpired, navigate]);
   
   const [item, setItem] = useState('Photos');
   const [photos, setPhotos] = useState<Photo[]>();

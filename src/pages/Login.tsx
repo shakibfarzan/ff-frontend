@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useJwt } from "react-jwt";
 import { login } from '../api/auth';
 import { Button, Input } from '../components';
 
 const Login = (): React.ReactElement => {
     const navigate = useNavigate();
+    const token = localStorage.getItem('access token');
+    const { isExpired, decodedToken } = useJwt<{ user_id: number }>(token ?? '');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     useEffect(() => {
-        const token = localStorage.getItem('token');
-        if (token) {
+        if ((decodedToken?.user_id === 1 || decodedToken?.user_id === 2) && !isExpired) {
             navigate('/admin');
         }
-    }, [navigate]);
+    }, [decodedToken?.user_id, isExpired, navigate]);
 
   return (
     <div className="flex justify-center items-center h-screen">
