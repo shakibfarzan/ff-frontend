@@ -13,9 +13,7 @@ import Bio from './types/Bio';
 import { getBio } from './api/about';
 
 function App(): React.ReactElement {
-
   const [bio, setBio] = useState<Bio>();
-
   useEffect(() => {
     getBio().then((res) => {
       setBio(res);
@@ -23,7 +21,6 @@ function App(): React.ReactElement {
       toast.error('Server error!');
     });
   }, []);
-
   return (
     <>
       <ToastContainer 

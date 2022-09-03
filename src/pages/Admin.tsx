@@ -1,5 +1,5 @@
 import React, { ReactElement, useEffect, useState } from 'react'
-import { useJwt } from 'react-jwt';
+import { useJwt, decodeToken } from 'react-jwt';
 import { useMediaQuery } from 'react-responsive';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -17,19 +17,23 @@ import { Bio as BioPage, Categories, ContactFields, Logout, Photos } from './adm
 const Admin = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem('access token');
-  const { isExpired, decodedToken } = useJwt<{ user_id: number }>(token ?? '');
+  const { isExpired } = useJwt(token ?? '');
+  const decodedToken = decodeToken(token ?? '');
   const isMobile = useMediaQuery({ query: '(max-width: 800px)' });
   const [refreshPhotos, setRefreshPhotos] = useState(false);
   const [refreshCategories, setRefreshCategories] = useState(false);
   const [refreshBio, setRefreshBio] = useState(false);
   const [refreshContactFields, setRefreshContactFields] = useState(false);
   useEffect(() => {
-    if (isExpired || (decodedToken?.user_id !== 1 && decodedToken?.user_id !== 2)) {
-      navigate('/not-found');
-    }
-  }, [decodedToken?.user_id, isExpired, navigate]);
+      if (!decodedToken) {
+        navigate('/not-found');
+      }
+      if (isExpired) {
+        navigate('/login')
+      }
+  }, [decodedToken, isExpired, navigate]);
   
-  const [item, setItem] = useState('Photos');
+  const [itemState, setItemState] = useState('Photos');
   const [photos, setPhotos] = useState<Photo[]>();
   const [categories, setCategories] = useState<Category[]>();
   const [bio, setBio] = useState<Bio>();
@@ -82,10 +86,10 @@ const Admin = () => {
     <div className='mt-28'>
       <div className="bg-granite bg-opacity-20 w-full p-5 mb-4 flex justify-around flex-wrap">
         {Object.keys(items).map((item) => (
-          <Button mode={'secondary'} content={item} onClick={() => setItem(item)} className={isMobile ? 'mb-2' : ''}/>
+          <Button key={item} mode={item === itemState ? 'primary' : 'secondary'} content={item} onClick={() => setItemState(item)} className={isMobile ? 'mb-2' : ''}/>
         ))}
       </div>
-      {items[item]}
+      {items[itemState]}
     </div>
   )
 }

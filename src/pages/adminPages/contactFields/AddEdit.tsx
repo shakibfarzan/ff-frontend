@@ -29,15 +29,6 @@ const AddEdit = (
                     type='text'
                     className='border border-secondary shadow-md'
                 />
-                <Input 
-                    value={formData?.value}
-                    id='value'
-                    name='value'
-                    onChange={(e) => setFormData({ ...formData, value: e.target.value })}
-                    placeholder="Value"
-                    type='text'
-                    className='border border-secondary shadow-md'              
-                />
                 <Input
                     value={formData?.link}
                     id='link'
@@ -46,6 +37,15 @@ const AddEdit = (
                     placeholder="Link"
                     type='text'
                     className='border border-secondary shadow-md'
+                />
+                <Input 
+                    value={formData?.value}
+                    id='value'
+                    name='value'
+                    onChange={(e) => setFormData({ ...formData, value: e.target.value })}
+                    placeholder="Value"
+                    type='text'
+                    className='border border-secondary shadow-md'              
                 />
                 <Button mode='secondary' content='Save' onClick={() => {
                     if (!formData?.name || !formData.value || !formData.link) {

@@ -25,44 +25,49 @@ const ContactFields = (
         </div>
         <div className='w-full overflow-auto'>
             <table className="w-full">
-                <tr className="border-y-2 border-secondary-light">
-                    <th className='p-3'>
-                        Name
-                    </th>
-                    <th>
-                        Link
-                    </th>
-                    <th>
-                        Value
-                    </th>
-                    <th></th>
-                </tr>
-                {contactFields?.map(({ id, name, value, link}) => (
-                    <tr className='border-b-2'>
-                        <td className='text-center p-3'>
-                            {name}
-                        </td>
-                        <td className='text-center p-3'>
-                            {link}
-                        </td>
-                        <td className='text-center p-3'>
-                            {value}
-                        </td>
-                        <td className="flex justify-center items-center">
-                            <div className="flex gap-2 my-2">
-                                <Button mode="secondary" content='Edit' onClick={() => {
-                                    setIsAddEditOpen(true);
-                                    setIsEdit(true);
-                                    setContactField(new ContactField(id, name, value, link));
-                                }} />
-                                <Button mode="primary" content='Delete' onClick={() => {
-                                    setIsDeleteOpen(true);
-                                    setSelectedId(id);
-                                }}/>
-                            </div>
-                        </td>
+                <thead>
+                    <tr className="border-y-2 border-secondary-light">
+                        <th className='p-3'>
+                            Name
+                        </th>
+                        <th>
+                            Link
+                        </th>
+                        <th>
+                            Value
+                        </th>
+                        <th></th>
                     </tr>
-                ))}
+                </thead>
+                <tbody>
+                    {contactFields?.map(({ id, name, value, link}) => (
+                        <tr key={id} className='border-b-2'>
+                            <td className='text-center p-3'>
+                                {name}
+                            </td>
+                            <td className='text-center p-3'>
+                                {link}
+                            </td>
+                            <td className='text-center p-3'>
+                                {value}
+                            </td>
+                            <td className="flex justify-center items-center">
+                                <div className="flex gap-2 my-2">
+                                    <Button mode="secondary" content='Edit' onClick={() => {
+                                        setIsAddEditOpen(true);
+                                        setIsEdit(true);
+                                        setContactField(new ContactField(id, name, value, link));
+                                    }} />
+                                    <Button mode="primary" content='Delete' onClick={() => {
+                                        setIsDeleteOpen(true);
+                                        setSelectedId(id);
+                                    }}/>
+                                </div>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+                
             </table>
         </div>
         <AddEdit 

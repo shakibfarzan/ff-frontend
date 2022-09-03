@@ -2,6 +2,10 @@ html {
   @apply bg-light text-secondary mx-8;
 }
 
+img {
+  pointer-events: none;
+}
+
 ::selection {
   @apply bg-primary;
 }
@@ -32,4 +36,8 @@ html {
 .rhm-rn-navigation__checkbox:checked + .rhm-rn-navigation__button .rhm-rn-navigation__icon {
   background-color: transparent !important;
   cursor: pointer;
+}
+
+.rhm-rn-navigation nav, .rhm-rn-navigation label {
+  @apply shadow-2xl;
 }

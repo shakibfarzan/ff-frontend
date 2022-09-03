@@ -58,7 +58,7 @@ export const updateOneContactField = (name: string, value: string, link: string,
     }).then(() => {
         toast.success('Contact Field Updated Successfully');
     }).catch((err) => {
-        toast.error(err.data);
+        toast.error(err.message);
     });
 }
 
@@ -74,7 +74,7 @@ export const deleteOneContactField = (id: number) => {
     }).then(() => {
         toast.success('Contact Field Deleted Successfully');
     }).catch((err) => {
-        toast.error(err.data);
+        toast.error(err.message);
     });
 }
 
@@ -102,6 +102,6 @@ export const createUpdateBio = (name: string, bio: string, profile: File) => {
     }).then(() => {
         toast.success('Bio Updated Successfully');
     }).catch((err) => {
-        toast.error(err.data);
+        toast.error(err.message);
     });
 }

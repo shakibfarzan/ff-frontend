@@ -7,14 +7,14 @@ import { Button, Input } from '../components';
 const Login = (): React.ReactElement => {
     const navigate = useNavigate();
     const token = localStorage.getItem('access token');
-    const { isExpired, decodedToken } = useJwt<{ user_id: number }>(token ?? '');
+    const { isExpired, decodedToken } = useJwt(token ?? '');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     useEffect(() => {
-        if ((decodedToken?.user_id === 1 || decodedToken?.user_id === 2) && !isExpired) {
+        if (decodedToken && !isExpired) {
             navigate('/admin');
         }
-    }, [decodedToken?.user_id, isExpired, navigate]);
+    }, [decodedToken, isExpired, navigate]);
 
   return (
     <div className="flex justify-center items-center h-screen">
