@@ -29,6 +29,8 @@ const Admin = () => {
         navigate('/not-found');
       }
       if (isExpired) {
+        localStorage.removeItem('access token');
+        localStorage.removeItem('refresh token');
         navigate('/login')
       }
   }, [decodedToken, isExpired, navigate]);
@@ -83,7 +85,7 @@ const Admin = () => {
     'Logout': <Logout />,
   }
   return (
-    <div className='mt-28'>
+    <div className='mt-28 mb-16'>
       <div className="bg-granite bg-opacity-20 w-full p-5 mb-4 flex justify-around flex-wrap">
         {Object.keys(items).map((item) => (
           <Button key={item} mode={item === itemState ? 'primary' : 'secondary'} content={item} onClick={() => setItemState(item)} className={isMobile ? 'mb-2' : ''}/>
