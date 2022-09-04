@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import Photo from "../types/Photo";
 
 const url = 'photos/';
+const token = `Bearer ${localStorage.getItem('access token')}`;
 
 export const getPhotos = async (): Promise<Photo[]> => {
     const { data } = await axios.get(url, {
@@ -19,7 +20,6 @@ export const getPhotosByCategory = async (category: string): Promise<Photo[]> =>
 }
 
 export const createPhoto = (src: File, category: number, name?: string) => {
-     const token = `Bearer ${localStorage.getItem('access token')}`;
     const formData = new FormData();
     formData.append('src', src);
     formData.append('category', category.toString());
@@ -40,7 +40,6 @@ export const createPhoto = (src: File, category: number, name?: string) => {
 }
 
 export const deletePhoto = (id: number) => {
-     const token = `Bearer ${localStorage.getItem('access token')}`;
     axios({
         baseURL: process.env.REACT_APP_API_URL,
         url: `${url}${id}/`,

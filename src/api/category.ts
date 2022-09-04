@@ -3,9 +3,9 @@ import { toast } from "react-toastify";
 import Category from "../types/Category";
 
 const url = 'categories/';
+const token = `Bearer ${localStorage.getItem('access token')}`;
 
 export const createCategory = (name: string, slug?: string) => {
-    const token = `Bearer ${localStorage.getItem('access token')}`;
     axios({
         baseURL: process.env.REACT_APP_API_URL,
         url,
@@ -39,7 +39,6 @@ export const getOneCategory = async (slug: string): Promise<Category> => {
 }
 
 export const updateCategory = (id: number, name: string, slug?: string) => {
-     const token = `Bearer ${localStorage.getItem('access token')}`;
     axios({
         baseURL: process.env.REACT_APP_API_URL,
         url: `${url}${id}/update/`,
@@ -59,7 +58,6 @@ export const updateCategory = (id: number, name: string, slug?: string) => {
 }
 
 export const deleteCategory = (id: number) => {
-     const token = `Bearer ${localStorage.getItem('access token')}`;
     axios({
         baseURL: process.env.REACT_APP_API_URL,
         url: `${url}${id}/delete/`,

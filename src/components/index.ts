@@ -4,3 +4,4 @@ export { default as Contact } from './Contact';
 export { default as Modal } from './Modal';
 export { default as Input } from './Input';
 export { default as Uploader } from './Uploader';
+export { default as Table } from './Table';

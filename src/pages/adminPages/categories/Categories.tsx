@@ -1,5 +1,5 @@
 import React from 'react';
-import Category from '../../types/Category';
+import Category from '../../../types/Category';
 
 const Categories = (
     { categories, setRefresh }: 
