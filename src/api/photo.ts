@@ -39,6 +39,24 @@ export const createPhoto = (src: File, category: number, name?: string) => {
     });
 }
 
+export const updatePhotoCategory = (id: number, category: number) => {
+    axios({
+        baseURL: process.env.REACT_APP_API_URL,
+        url: `${url}${id}/update/`,
+        data: {
+            category
+        },
+        headers: {
+            'Authorization': token,
+        },
+        method: 'patch',
+    }).then(() => {
+        toast.success('Photo Created Successfully');
+    }).catch((err) => {
+        toast.error(err.message);
+    });
+}
+
 export const deletePhoto = (id: number) => {
     axios({
         baseURL: process.env.REACT_APP_API_URL,

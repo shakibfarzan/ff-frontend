@@ -28,7 +28,10 @@ const Uploader = (
               className={`border-dotted border-2 rounded-lg py-5 px-3
                 ${isDragging ? 'border-primary' : 'border-granite'} 
                 ${(image && image?.length > 0) ? 'hidden' : ''}`}
-              onClick={onImageUpload}
+              onClick={(e) => {
+                e.preventDefault();
+                onImageUpload();
+              }}
               {...dragProps}
             >
               Upload photo
