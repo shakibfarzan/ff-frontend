@@ -7,18 +7,8 @@ import { useMediaQuery } from "react-responsive";
 import { toast } from "react-toastify";
 import { Category } from "../types";
 
-const Navbar = ({ name }: { name: string | undefined }): React.ReactElement => {
-
-  const [categories, setCategories] = useState<Category[]>();
+const Navbar = ({ name, categories }: { name: string | undefined; categories: Category[] | undefined }): React.ReactElement => {
   const isDesktop = useMediaQuery({ query: '(min-width: 1000px)'});
-
-  useEffect(() => {
-    getCategories().then((res) => {
-      setCategories(res);
-    }).catch(() => {
-      toast.error('Server error!');
-    })
-  }, []);
 
   const handleClickReload = () => {
     if (!isDesktop) {

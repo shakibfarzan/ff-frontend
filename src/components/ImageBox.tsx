@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Lightbox, { ImagesListType } from 'react-spring-lightbox';
+import { Close } from '../assets/Icons';
 import { ImageType } from '../types';
+import ArrowButton from './ArrowButton';
 
 const ImageBox = (
   { image, currentIndex, isOpen, setIsOpen }: 
@@ -24,6 +26,11 @@ const ImageBox = (
     const gotoNext = () =>
         currentImageIndex + 1 < images.length &&
         setCurrentIndex(currentImageIndex + 1);
+    
+    const handleClose = () => {
+      setIsOpen(false);
+      setCurrentIndex(currentIndex ?? 0);
+    }
 
   return (
     <Lightbox
@@ -32,21 +39,28 @@ const ImageBox = (
       onNext={gotoNext}
       images={images}
       currentIndex={currentImageIndex}
+      singleClickToZoom
       /* Add your own UI */
-      // renderHeader={() => (<CustomHeader />)}
+      renderHeader={() => (
+        <div className='flex justify-end'>
+          <button onClick={(e) =>{
+            e.preventDefault();
+            handleClose();
+          }}>
+            <Close />
+          </button>
+        </div>
+      )}
       // renderFooter={() => (<CustomFooter />)}
-      // renderPrevButton={() => (<CustomLeftArrowButton />)}
-      // renderNextButton={() => (<CustomRightArrowButton />)}
+      renderPrevButton={() => (<ArrowButton disabled={currentImageIndex === 0} position={'left'} onClick={gotoPrevious} />)}
+      renderNextButton={() => (<ArrowButton disabled={!Array.isArray(image) || image.length - 1 === currentImageIndex} position={'right'} onClick={gotoNext}/>)}
       // renderImageOverlay={() => (<ImageOverlayComponent >)}
 
       /* Add styling */
       className="bg-granite bg-opacity-50 backdrop-blur-md z-50"
 
       /* Handle closing */
-      onClose={() => setIsOpen(false)}
-
-      /* Use single or double click to zoom */
-      // singleClickToZoom
+      onClose={handleClose}
 
       /* react-spring config for open/close animation */
       pageTransitionConfig={{

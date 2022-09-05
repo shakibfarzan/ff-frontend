@@ -7,3 +7,4 @@ export { default as Uploader } from './Uploader';
 export { default as Table } from './Table';
 export { default as ImageBox } from './ImageBox';
 export { default as CustomImage } from './CustomImage';
+export { default as Empty } from './Empty';

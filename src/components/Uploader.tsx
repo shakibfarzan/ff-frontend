@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import ImageUploading from 'react-images-uploading';
 import { ImageListType } from 'react-images-uploading/dist/typings';
 import Button from './Button';
 import CustomImage from './CustomImage';
-import ImageBox from './ImageBox';
 
 const Uploader = (
     { image, setImage, className, url }: 

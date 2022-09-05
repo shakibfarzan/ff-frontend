@@ -11,9 +11,21 @@ import Admin from './pages/Admin';
 import { Navbar } from './components';
 import Bio from './types/Bio';
 import { getBio } from './api/about';
+import { Category } from './types';
+import { getCategories } from './api/category';
 
 function App(): React.ReactElement {
   const [bio, setBio] = useState<Bio>();
+  const [categories, setCategories] = useState<Category[]>();
+
+  useEffect(() => {
+    getCategories().then((res) => {
+      setCategories(res);
+    }).catch(() => {
+      toast.error('Server error!');
+    })
+  }, []);
+
   useEffect(() => {
     getBio().then((res) => {
       setBio(res);
@@ -27,17 +39,16 @@ function App(): React.ReactElement {
         closeOnClick
         theme="dark"
         position="top-right"
-        autoClose={3000}
+        autoClose={2000}
         hideProgressBar={false}
         newestOnTop={false}
         rtl={false}
-        pauseOnFocusLoss
         draggable
         pauseOnHover
       />
-      <Navbar name={bio?.name} />
+      <Navbar categories={categories} name={bio?.name} />
       <Routes>
-        <Route path="/gallery/:slug" element={<Gallery />} />
+        <Route path="/gallery/:slug" element={<Gallery categories={categories} />} />
         <Route path="/login" element={<Login />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/home" element={<Home bio={bio} />} />

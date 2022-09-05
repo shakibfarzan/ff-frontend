@@ -2,7 +2,11 @@ html {
   @apply bg-light text-secondary mx-8;
 }
 
-img {
+img:hover {
+  pointer-events: visible;
+}
+
+img:active {
   pointer-events: none;
 }
 

@@ -27,8 +27,9 @@ const CustomImage = (
             setIsOpen={setIsOpen}
             currentIndex={currentIndex}
         />
-        <button 
-            onClick={() => {
+        <button
+            onClick={(e) => {
+                e.preventDefault();
                 setIsOpen && setIsOpen(true);
             }}
         >

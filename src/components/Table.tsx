@@ -1,4 +1,5 @@
 import React from 'react'
+import Empty from './Empty';
 
 function Table<T>(
     { dataSource, keyIndex, columns }: 
@@ -16,17 +17,20 @@ function Table<T>(
                     ))}
                 </tr>
             </thead>
-            <tbody>
-                {dataSource?.map((data: any, index) => (
-                    <tr key={data[keyIndex]} className='border-b-2'>
-                        {columns.map(({ className, dataIndex, render }) => (
-                            <td className={`p-3 ${className}`}>
-                                {render ? render(dataIndex ? data[dataIndex] : undefined, data, index) : dataIndex ? data[dataIndex] : ''}
-                            </td>
-                        ))}
-                    </tr>
-                ))}
-            </tbody>
+            {dataSource?.length ? 
+                <tbody>
+                    {dataSource?.map((data: any, index) => (
+                        <tr key={data[keyIndex]} className='border-b-2'>
+                            {columns.map(({ className, dataIndex, render }) => (
+                                <td className={`p-3 ${className}`}>
+                                    {render ? render(dataIndex ? data[dataIndex] : undefined, data, index) : dataIndex ? data[dataIndex] : ''}
+                                </td>
+                            ))}
+                        </tr>
+                    ))}
+                </tbody>:
+                <Empty text='No data found'/>
+            }
         </table>
     </div>
   )
