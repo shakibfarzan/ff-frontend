@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { toast } from 'react-toastify';
 import { createContactField, updateOneContactField } from '../../../api/about';
 import { Button, Input, Modal } from '../../../components'
-import ContactField from '../../../types/ContactField';
+import { ContactField } from '../../../types';
 
 const AddEdit = (
     { isOpen, setIsOpen, contactField, isEdit, setRefresh }: 

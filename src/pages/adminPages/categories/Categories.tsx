@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Table } from '../../../components';
-import Category from '../../../types/Category';
+import { Category } from '../../../types';
 import AddEdit from './AddEdit';
 import Delete from './Delete';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Contact } from '../components';
-import Bio from '../types/Bio';
+import { Bio } from '../types';
 
 const Home = ({ bio }: { bio: Bio | undefined }): React.ReactElement => {
 

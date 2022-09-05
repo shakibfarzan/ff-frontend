@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import ContactField from '../types/ContactField';
 import facebook from '../assets/facebook.svg';
 import instagram from '../assets/instagram.svg';
 import mail from '../assets/mail.svg';
@@ -8,6 +7,7 @@ import twitter from '../assets/twitter.svg';
 import { getContactFields } from '../api/about';
 import { toast } from 'react-toastify';
 import { useMediaQuery } from 'react-responsive';
+import { ContactField } from '../types';
 
 const mapObject: Record<string, string> = {
     Instagram: instagram,

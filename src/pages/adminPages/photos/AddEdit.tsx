@@ -3,8 +3,7 @@ import { ImageListType } from 'react-images-uploading';
 import { toast } from 'react-toastify';
 import { createPhoto, updatePhotoCategory } from '../../../api/photo';
 import { Button, Input, Modal, Uploader } from '../../../components';
-import Category from '../../../types/Category';
-import Photo from '../../../types/Photo';
+import { Category, Photo } from '../../../types';
 
 const AddEdit = (
     { isOpen, setIsOpen, photo, isEdit, setRefresh, categories }: 

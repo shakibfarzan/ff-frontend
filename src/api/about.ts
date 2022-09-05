@@ -1,7 +1,6 @@
 import axios from "axios";
 import { toast } from "react-toastify";
-import Bio from "../types/Bio";
-import ContactField from "../types/ContactField";
+import { Bio, ContactField } from "../types";
 
 const contactFieldUrl = 'about/contact-fields/';
 const bioUrl = 'about/bio/';

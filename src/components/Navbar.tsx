@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { ResponsiveNavbar } from "react-hamburger-menus";
 import { Link } from "react-router-dom";
 import { getCategories } from "../api/category";
-import Category from "../types/Category";
 import { useMediaQuery } from "react-responsive";
 import { toast } from "react-toastify";
+import { Category } from "../types";
 
 const Navbar = ({ name }: { name: string | undefined }): React.ReactElement => {
 
@@ -33,7 +33,9 @@ const Navbar = ({ name }: { name: string | undefined }): React.ReactElement => {
       // eslint-disable-next-line jsx-a11y/anchor-is-valid
       logo={<Link to={'/home'} onClick={handleClickReload} className="text-light text-lg cursor-pointer">{name?.toUpperCase()}</Link>}
       styles={{
-        navigation: {},
+        navigation: {
+          zIndex: 40,
+        },
         navigationBarSmall: {
           backgroundColor: "rgb(0 15 45)",
         },

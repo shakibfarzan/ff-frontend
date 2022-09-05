@@ -1,6 +1,6 @@
 import axios from "axios";
 import { toast } from "react-toastify";
-import Category from "../types/Category";
+import { Category } from "../types";
 
 const url = 'categories/';
 

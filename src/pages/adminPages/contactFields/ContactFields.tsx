@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Table } from '../../../components';
-import ContactField from '../../../types/ContactField';
+import { ContactField } from '../../../types';
 import AddEdit from './AddEdit';
 import Delete from './Delete';
 

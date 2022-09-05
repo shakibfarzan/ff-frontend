@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import { Button, Table } from '../../../components';
-import Category from '../../../types/Category';
-import Photo from '../../../types/Photo';
+import { Button, CustomImage, Table } from '../../../components';
+import { Category, Photo } from '../../../types';
 import AddEdit from './AddEdit';
 import Delete from './Delete';
 
@@ -32,8 +31,13 @@ const Photos = (
                     dataIndex: 'src',
                     title: 'Image',
                     className: 'md:w-1/6 sm:w-1/2',
-                    render: (value) => (
-                      <img src={value} alt=""  />
+                    render: (value, record, index) => (
+                      <CustomImage 
+                        images={photos?.map((ph) => ({ src: ph.src ?? '', alt: ph.name ?? '' }))} 
+                        currentIndex={index}
+                        src={value}
+                        alt={record?.name}
+                      />
                     )
                 },
                 {

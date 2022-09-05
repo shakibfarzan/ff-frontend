@@ -8,10 +8,7 @@ import { refreshToken } from '../api/auth';
 import { getCategories } from '../api/category';
 import { getPhotos } from '../api/photo';
 import { Button } from '../components';
-import Bio from '../types/Bio';
-import Category from '../types/Category';
-import ContactField from '../types/ContactField';
-import Photo from '../types/Photo';
+import { Bio, Category, ContactField, Photo } from '../types';
 import { Bio as BioPage, Categories, ContactFields, Logout, Photos } from './adminPages';
 
 

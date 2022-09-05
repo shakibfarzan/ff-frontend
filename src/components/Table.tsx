@@ -2,7 +2,7 @@ import React from 'react'
 
 function Table<T>(
     { dataSource, keyIndex, columns }: 
-    { dataSource: T[] | undefined; keyIndex: string; columns: Array<{ dataIndex?: string; className?: string; title?: string; render?: (value?: any, record?: T) => React.ReactNode}> } 
+    { dataSource: T[] | undefined; keyIndex: string; columns: Array<{ dataIndex?: string; className?: string; title?: string; render?: (value?: any, record?: T, index?: number) => React.ReactNode}> } 
 ): React.ReactElement {
   return (
     <div className='w-full overflow-auto'>
@@ -17,11 +17,11 @@ function Table<T>(
                 </tr>
             </thead>
             <tbody>
-                {dataSource?.map((data: any) => (
+                {dataSource?.map((data: any, index) => (
                     <tr key={data[keyIndex]} className='border-b-2'>
                         {columns.map(({ className, dataIndex, render }) => (
                             <td className={`p-3 ${className}`}>
-                                {render ? render(dataIndex ? data[dataIndex] : undefined, data) : dataIndex ? data[dataIndex] : ''}
+                                {render ? render(dataIndex ? data[dataIndex] : undefined, data, index) : dataIndex ? data[dataIndex] : ''}
                             </td>
                         ))}
                     </tr>

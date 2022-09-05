@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { toast } from 'react-toastify';
 import { createCategory, updateCategory } from '../../../api/category';
 import { Button, Input, Modal } from '../../../components';
-import Category from '../../../types/Category';
+import { Category } from '../../../types';
 
 const AddEdit = (
     { isOpen, setIsOpen, category, isEdit, setRefresh }: 

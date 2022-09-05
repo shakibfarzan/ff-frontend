@@ -1,6 +1,6 @@
 import axios from "axios";
 import { toast } from "react-toastify";
-import Photo from "../types/Photo";
+import { Photo } from "../types";
 
 const url = 'photos/';
 
