@@ -3,7 +3,6 @@ import { toast } from "react-toastify";
 import Category from "../types/Category";
 
 const url = 'categories/';
-const token = `Bearer ${localStorage.getItem('access token')}`;
 
 export const createCategory = (name: string, slug?: string) => {
     axios({
@@ -14,7 +13,7 @@ export const createCategory = (name: string, slug?: string) => {
             slug,
         } : { name },
         headers: {
-            'Authorization': token,
+            'Authorization': `Bearer ${localStorage.getItem('access token')}`,
         },
         method: 'post',
     }).then(() => {
@@ -47,7 +46,7 @@ export const updateCategory = (id: number, name: string, slug?: string) => {
             slug,
         } : { name },
         headers: {
-            'Authorization': token,
+            'Authorization': `Bearer ${localStorage.getItem('access token')}`,
         },
         method: 'put',
     }).then(() => {
@@ -62,7 +61,7 @@ export const deleteCategory = (id: number) => {
         baseURL: process.env.REACT_APP_API_URL,
         url: `${url}${id}/delete/`,
         headers: {
-            'Authorization': token,
+            'Authorization': `Bearer ${localStorage.getItem('access token')}`,
         },
         method: 'delete',
     }).then(() => {

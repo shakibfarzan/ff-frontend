@@ -4,6 +4,7 @@ import { useMediaQuery } from 'react-responsive';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { getBio, getContactFields } from '../api/about';
+import { refreshToken } from '../api/auth';
 import { getCategories } from '../api/category';
 import { getPhotos } from '../api/photo';
 import { Button } from '../components';
@@ -29,9 +30,7 @@ const Admin = () => {
         navigate('/not-found');
       }
       if (isExpired) {
-        localStorage.removeItem('access token');
-        localStorage.removeItem('refresh token');
-        navigate('/login')
+        refreshToken();
       }
   }, [decodedToken, isExpired, navigate]);
   

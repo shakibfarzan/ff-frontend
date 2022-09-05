@@ -1,5 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
+import { logout } from '../../api/auth';
 import { Button } from '../../components';
 
 const Logout = (): React.ReactElement => {
@@ -8,8 +9,7 @@ const Logout = (): React.ReactElement => {
     <div className="flex justify-center gap-4 items-center">
         <p className="text-lg">Are you sure to logout?</p>
         <Button mode={'primary'} content={'Yes'} onClick={() => {
-            localStorage.removeItem('access token');
-            localStorage.removeItem('refresh token');
+            logout();
             navigate('/login');
         }}/>
     </div>

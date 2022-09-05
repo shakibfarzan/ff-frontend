@@ -20,6 +20,23 @@ export const login = (username: string, password: string, onSuccess?: () => void
     })
 }
 
+export const refreshToken = () => {
+    const refteshToken = localStorage.getItem('refresh token');
+    axios({
+        baseURL: process.env.REACT_APP_API_URL,
+        data: {
+            refresh: refteshToken
+        },
+        method: 'post',
+        url:'auth/refresh/'
+    }).then((res) => {
+        localStorage.setItem('access token', res.data.access);
+    }).catch((err) => {
+        toast.error(err.message);
+    })
+}
+
 export const logout = () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem('access token');
+    localStorage.removeItem('refresh token');
 }

@@ -5,7 +5,6 @@ import ContactField from "../types/ContactField";
 
 const contactFieldUrl = 'about/contact-fields/';
 const bioUrl = 'about/bio/';
-const token = `Bearer ${localStorage.getItem('access token')}`;
 
 export const createContactField = (name: string, value: string, link: string) => {
     axios({
@@ -16,7 +15,7 @@ export const createContactField = (name: string, value: string, link: string) =>
             link,
         },
         headers: {
-            'Authorization': token,
+            'Authorization': `Bearer ${localStorage.getItem('access token')}`,
         },
         url: contactFieldUrl,
         method: 'post',
@@ -50,7 +49,7 @@ export const updateOneContactField = (name: string, value: string, link: string,
             link,
         },
         headers: {
-            'Authorization': token,
+            'Authorization': `Bearer ${localStorage.getItem('access token')}`,
         },
         url: `${contactFieldUrl}${id}/`,
         method: 'put',
@@ -65,7 +64,7 @@ export const deleteOneContactField = (id: number) => {
     axios({
         baseURL: process.env.REACT_APP_API_URL,
         headers: {
-            'Authorization': token,
+            'Authorization': `Bearer ${localStorage.getItem('access token')}`,
         },
         url: `${contactFieldUrl}${id}/`,
         method: 'delete',
@@ -91,7 +90,7 @@ export const createUpdateBio = (name: string, bio: string, profile: File) => {
     axios({
         baseURL: process.env.REACT_APP_API_URL,
         headers: {
-            'Authorization': token,
+            'Authorization': `Bearer ${localStorage.getItem('access token')}`,
         },
         url: bioUrl,
         method: 'put',
