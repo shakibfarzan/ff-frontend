@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, CustomImage, Table } from '../../../components';
 import { Category, Photo } from '../../../types';
 import AddEdit from './AddEdit';
@@ -12,11 +12,33 @@ const Photos = (
   const [isAddEditOpen, setIsAddEditOpen] = useState<boolean>(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [photo, setPhoto] = useState<Photo>();
+  const [filteredPhotos, setFilteredPhotos] = useState(photos);
   const [selectedId, setSelectedId] = useState<number>();
+  const [categoryFilterValue, setCategoryFilterValue] = useState<string>("-1");
+
+  useEffect(() => {
+    if (categoryFilterValue === "-1") {
+        setFilteredPhotos(photos);
+    } else {
+        setFilteredPhotos(photos?.filter((p) => p.category?.toString() === categoryFilterValue));
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [categoryFilterValue]);
 
   return (
     <div className="w-full">
-        <div className="w-full flex justify-end mb-4">
+        <div className="w-full flex justify-end gap-4 mb-4">
+            <select 
+              placeholder='Category'
+              value={categoryFilterValue}
+              className="outline-none border border-secondary p-2 shadow-md cursor-pointer"
+              onChange={(e) => setCategoryFilterValue(e.target.value)}>
+              {[{ name: 'All', slug: 'all', id: -1}, ...(categories as Array<Category>)]?.map((c) => (
+                <option value={c.id?.toString()} key={c.id}>
+                  {c.name}
+                </option>
+              ))}
+            </select>
             <Button mode="secondary" content='Add' onClick={() => {
                 setIsEdit(false);
                 setIsAddEditOpen(true);
@@ -24,7 +46,7 @@ const Photos = (
             }}/>
         </div>
         <Table 
-            dataSource={photos} 
+            dataSource={filteredPhotos} 
             keyIndex={'id'} 
             columns={[
                 {

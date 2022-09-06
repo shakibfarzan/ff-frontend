@@ -3,7 +3,7 @@ import { useMediaQuery } from 'react-responsive';
 import { useParams } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import { getPhotosByCategory } from '../api/photo';
-import { CustomImage, Empty } from '../components';
+import { CustomImage, Empty, Loader } from '../components';
 import { Category, Photo } from '../types';
 
 const Gallery = ({ categories }: { categories: Category[] | undefined }): React.ReactElement => {
@@ -28,7 +28,8 @@ const Gallery = ({ categories }: { categories: Category[] | undefined }): React.
       <p className={`text-2xl font-extrabold text-center tracking-widest text-light from-light to-secondary sticky bg-gradient-to-t py-4 -mx-8 mb-6 ${isDesktop ? 'top-20': 'top-12'}`}>
         {category?.toUpperCase()}
       </p>
-      {photos?.length ? 
+      {!photos ? <Loader className='flex justify-center mt-28 items-center'/> : 
+        photos?.length ? 
         <div className='grid gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
           {photos?.map((ph, index) => (
             <CustomImage 

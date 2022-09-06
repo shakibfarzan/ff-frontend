@@ -1,10 +1,8 @@
 import "react-hamburger-menus/dist/style.css";
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { ResponsiveNavbar } from "react-hamburger-menus";
 import { Link } from "react-router-dom";
-import { getCategories } from "../api/category";
 import { useMediaQuery } from "react-responsive";
-import { toast } from "react-toastify";
 import { Category } from "../types";
 
 const Navbar = ({ name, categories }: { name: string | undefined; categories: Category[] | undefined }): React.ReactElement => {

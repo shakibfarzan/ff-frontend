@@ -1,5 +1,6 @@
 import React from 'react'
 import Empty from './Empty';
+import Loader from './Loader';
 
 function Table<T>(
     { dataSource, keyIndex, columns }: 
@@ -7,6 +8,7 @@ function Table<T>(
 ): React.ReactElement {
   return (
     <div className='w-full overflow-auto'>
+        {!dataSource ? <Loader className='flex justify-center mt-28 items-center'/> : 
         <table className="w-full">
             <thead>
                 <tr className="border-y-2 border-secondary-light">
@@ -32,6 +34,7 @@ function Table<T>(
                 <Empty text='No data found'/>
             }
         </table>
+        }
     </div>
   )
 }

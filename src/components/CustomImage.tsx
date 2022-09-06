@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ImageType } from '../types';
 import ImageBox from './ImageBox';
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const CustomImage = (
     { src, alt, className, images, currentIndex }:
@@ -33,7 +34,7 @@ const CustomImage = (
                 setIsOpen && setIsOpen(true);
             }}
         >
-            <img 
+            <LazyLoadImage 
                 src={src}
                 alt={alt}
                 className={className}
