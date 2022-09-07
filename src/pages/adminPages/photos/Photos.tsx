@@ -12,9 +12,9 @@ const Photos = (
   const [isAddEditOpen, setIsAddEditOpen] = useState<boolean>(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [photo, setPhoto] = useState<Photo>();
-  const [filteredPhotos, setFilteredPhotos] = useState(photos);
+  const [filteredPhotos, setFilteredPhotos] = useState<Photo[]>();
   const [selectedId, setSelectedId] = useState<number>();
-  const [categoryFilterValue, setCategoryFilterValue] = useState<string>("-1");
+  const [categoryFilterValue, setCategoryFilterValue] = useState<string>();
 
   useEffect(() => {
     if (categoryFilterValue === "-1") {
@@ -33,7 +33,7 @@ const Photos = (
               value={categoryFilterValue}
               className="outline-none border border-secondary p-2 shadow-md cursor-pointer"
               onChange={(e) => setCategoryFilterValue(e.target.value)}>
-              {[{ name: 'All', slug: 'all', id: -1}, ...(categories as Array<Category>)]?.map((c) => (
+              {(categories ? [{ name: 'All', slug: 'all', id: -1}, ...categories] : [{ name: 'All', slug: 'all', id: -1}])?.map((c) => (
                 <option value={c.id?.toString()} key={c.id}>
                   {c.name}
                 </option>
@@ -46,7 +46,7 @@ const Photos = (
             }}/>
         </div>
         <Table 
-            dataSource={filteredPhotos} 
+            dataSource={!categoryFilterValue ? photos : filteredPhotos} 
             keyIndex={'id'} 
             columns={[
                 {
