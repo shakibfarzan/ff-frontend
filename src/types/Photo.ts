@@ -4,5 +4,6 @@ export default class Photo {
         public name?: string,
         public src?: string,
         public category?: number,
+        public sub_category?: number,
     ) {}
 }

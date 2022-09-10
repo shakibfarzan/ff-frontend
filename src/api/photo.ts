@@ -11,18 +11,19 @@ export const getPhotos = async (): Promise<Photo[]> => {
     return data;
 }
 
-export const getPhotosByCategory = async (category: string): Promise<Photo[]> => { 
-    const { data } = await axios.get(`${url}?slug=${category}`, {
+export const getPhotosByCategory = async (category: string, subCategory?: string): Promise<Photo[]> => { 
+    const { data } = await axios.get(!subCategory ? `${url}?slug=${category}` : `${url}?slug=${category}&sub=${subCategory}`, {
         baseURL: process.env.REACT_APP_API_URL,
     });
     return data;
 }
 
-export const createPhoto = (src: File, category: number, name?: string) => {
+export const createPhoto = (src: File, category: number, subCategory: number | null, name?: string) => {
     const formData = new FormData();
     formData.append('src', src);
     formData.append('category', category.toString());
     name && formData.append('name', name);
+    subCategory && formData.append('sub_category', subCategory.toString());
     axios({
         baseURL: process.env.REACT_APP_API_URL,
         url,
@@ -38,12 +39,13 @@ export const createPhoto = (src: File, category: number, name?: string) => {
     });
 }
 
-export const updatePhotoCategory = (id: number, category: number) => {
+export const updatePhotoCategory = (id: number, category: number, subCategory: number | null) => {
     axios({
         baseURL: process.env.REACT_APP_API_URL,
         url: `${url}${id}/update/`,
         data: {
-            category
+            category,
+            sub_category: subCategory,
         },
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('access token')}`,

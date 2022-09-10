@@ -4,23 +4,23 @@ import { Category, Photo, SubCategory } from '../../../types';
 import AddEdit from './AddEdit';
 import Delete from './Delete';
 
-const Photos = (
-    { photos, categories, subCategories, setRefresh }: 
-    { photos: Photo[] | undefined; categories: Category[] | undefined; subCategories: SubCategory[] | undefined; setRefresh: (val: boolean) => void}
+const SubCategories = (
+    { categories, subCategories, setRefresh }: 
+    { categories: Category[] | undefined; subCategories: SubCategory[] | undefined; setRefresh: (val: boolean) => void}
 ): React.ReactElement => {
   const [isEdit, setIsEdit] = useState(false);
   const [isAddEditOpen, setIsAddEditOpen] = useState<boolean>(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
-  const [photo, setPhoto] = useState<Photo>();
-  const [filteredPhotos, setFilteredPhotos] = useState<Photo[]>();
+  const [subCategory, setSubCategory] = useState<SubCategory>();
+  const [filteredSubCategory, setFilteredSubCategory] = useState<SubCategory[]>();
   const [selectedId, setSelectedId] = useState<number>();
   const [categoryFilterValue, setCategoryFilterValue] = useState<string>();
 
   useEffect(() => {
     if (categoryFilterValue === "-1") {
-        setFilteredPhotos(photos);
+        setFilteredSubCategory(subCategories);
     } else {
-        setFilteredPhotos(photos?.filter((p) => p.category?.toString() === categoryFilterValue));
+        setFilteredSubCategory(subCategories?.filter((p) => p.parent_category?.toString() === categoryFilterValue));
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categoryFilterValue]);
@@ -43,45 +43,24 @@ const Photos = (
             <Button mode="secondary" content='Add' onClick={() => {
                 setIsEdit(false);
                 setIsAddEditOpen(true);
-                setPhoto(undefined);
+                setSubCategory(undefined);
             }}/>
         </div>
         <Table 
-            dataSource={!categoryFilterValue ? photos : filteredPhotos} 
+            dataSource={!categoryFilterValue ? subCategories : filteredSubCategory} 
             keyIndex={'id'} 
             columns={[
-                {
-                    dataIndex: 'src',
-                    title: 'Image',
-                    className: 'md:w-1/6 sm:w-1/2',
-                    render: (value, record, index) => (
-                      <CustomImage 
-                        images={photos?.map((ph) => ({ src: ph.src ?? '', alt: ph.name ?? '' }))} 
-                        currentIndex={index}
-                        src={value}
-                        alt={record?.name}
-                      />
-                    )
-                },
                 {
                     dataIndex: 'name',
                     title: 'Name',
                     className: 'text-center',
                 },
                 {
-                    dataIndex: 'category',
+                    dataIndex: 'parent_category',
                     title: 'Category',
                     className: 'text-center',
                     render: (value) => (
                       categories?.find((c) => c.id === value)?.name
-                    )
-                },
-                {
-                    dataIndex: 'sub_category',
-                    title: 'Sub Category',
-                    className: 'text-center',
-                    render: (value) => (
-                      value ? subCategories?.find((c) => c.id === value)?.name : '__'
                     )
                 },
                 {
@@ -92,7 +71,7 @@ const Photos = (
                             <Button mode="secondary" content='Edit' onClick={() => {
                                 setIsAddEditOpen(true);
                                 setIsEdit(true);
-                                setPhoto(new Photo(id, record?.name, record?.src, record?.category, record?.sub_category));
+                                setSubCategory(new SubCategory(record?.name, record?.slug, id, record?.parent_category));
                             }} />
                             <Button mode="primary" content='Delete' onClick={() => {
                                 setIsDeleteOpen(true);
@@ -106,11 +85,10 @@ const Photos = (
         <AddEdit 
             isOpen={isAddEditOpen} 
             setIsOpen={setIsAddEditOpen} 
-            photo={photo} 
+            subCategory={subCategory} 
             isEdit={isEdit} 
             setRefresh={setRefresh}
             categories={categories}
-            subCategories={subCategories}
         />
         <Delete 
             isOpen={isDeleteOpen} 
@@ -122,4 +100,4 @@ const Photos = (
   )
 }
 
-export default Photos;
+export default SubCategories;

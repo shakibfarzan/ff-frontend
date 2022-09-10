@@ -2,26 +2,40 @@ import React, { ReactElement, useEffect, useState } from 'react'
 import { useJwt, decodeToken } from 'react-jwt';
 import { useMediaQuery } from 'react-responsive';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import { getBio, getContactFields } from '../api/about';
 import { refreshToken } from '../api/auth';
-import { getCategories } from '../api/category';
-import { getPhotos } from '../api/photo';
 import { Button } from '../components';
-import { Bio, Category, ContactField, Photo } from '../types';
-import { Bio as BioPage, Categories, ContactFields, Logout, Photos } from './adminPages';
+import { Photo, Category, ContactField, Bio, SubCategory } from '../types';
+import { Bio as BioPage, Categories, ContactFields, Logout, Photos, SubCategories } from './adminPages';
 
 
-const Admin = () => {
+const Admin = ({
+  photos,
+  categories,
+  bio,
+  contactFields,
+  subCategories,
+  setRefreshPhotos,
+  setRefreshCategories,
+  setRefreshBio,
+  setRefreshContactFields,
+  setRefreshSubCategories,
+}:{
+  photos: Photo[] | undefined;
+  categories: Category[] | undefined;
+  bio: Bio | undefined;
+  contactFields: ContactField[] | undefined;
+  subCategories: SubCategory[] | undefined;
+  setRefreshPhotos: (val: boolean) => void;
+  setRefreshCategories: (val: boolean) => void;
+  setRefreshBio: (val: boolean) => void;
+  setRefreshContactFields: (val: boolean) => void;
+  setRefreshSubCategories: (val: boolean) => void;
+}) => {
   const navigate = useNavigate();
   const token = localStorage.getItem('access token');
   const { isExpired } = useJwt(token ?? '');
   const decodedToken = decodeToken(token ?? '');
   const isMobile = useMediaQuery({ query: '(max-width: 800px)' });
-  const [refreshPhotos, setRefreshPhotos] = useState(false);
-  const [refreshCategories, setRefreshCategories] = useState(false);
-  const [refreshBio, setRefreshBio] = useState(false);
-  const [refreshContactFields, setRefreshContactFields] = useState(false);
   useEffect(() => {
       if (!decodedToken) {
         navigate('/not-found');
@@ -32,50 +46,11 @@ const Admin = () => {
   }, [decodedToken, isExpired, navigate]);
   
   const [itemState, setItemState] = useState('Photos');
-  const [photos, setPhotos] = useState<Photo[]>();
-  const [categories, setCategories] = useState<Category[]>();
-  const [bio, setBio] = useState<Bio>();
-  const [contactFields, setContactFields] = useState<ContactField[]>();
-
-  useEffect(() => {
-    getPhotos().then((res) => {
-      setPhotos(res);
-    }).catch((err) => {
-      toast.error(err.message);
-    });
-    setRefreshPhotos(false);
-  }, [refreshPhotos]);
-
-  useEffect(() => {
-    getCategories().then((res) => {
-      setCategories(res);
-    }).catch((err) => {
-      toast.error(err.message);
-    });
-    setRefreshCategories(false);
-  }, [refreshCategories]);
-
-  useEffect(() => {
-    getBio().then((res) => {
-      setBio(res);
-    }).catch((err) => {
-      toast.error(err.message);
-    });
-    setRefreshBio(false);
-  }, [refreshBio]);
-
-  useEffect(() => {
-    getContactFields().then((res) => {
-      setContactFields(res);
-    }).catch((err) => {
-      toast.error(err.message);
-    });
-    setRefreshContactFields(false);
-  }, [refreshContactFields]);
 
   const items: Record<string, ReactElement> = {
-    'Photos': <Photos photos={photos} categories={categories} setRefresh={setRefreshPhotos} />,
+    'Photos': <Photos photos={photos} categories={categories} subCategories={subCategories} setRefresh={setRefreshPhotos} />,
     'Categories': <Categories categories={categories} setRefresh={setRefreshCategories} />,
+    'Sub Categories': <SubCategories categories={categories} subCategories={subCategories} setRefresh={setRefreshSubCategories} />,
     'Bio': <BioPage bio={bio} setRefresh={setRefreshBio} />,
     'Contact Fields': <ContactFields contactFields={contactFields} setRefresh={setRefreshContactFields} />,
     'Logout': <Logout />,
